@@ -30,10 +30,13 @@ public class OllamaService {
 
 		String systemPrompt = "당신은 " + npc.getName() + "입니다. "
 			+ mbtiToDescription(npc.getMbtiType())
-			+ " 당신은 중세 마을의 주민입니다."
-			+ " 반드시 한국어로 한두 문장으로만 짧게 대답하세요."
-			+ " 마크다운, 목록, 기호를 절대 사용하지 마세요."
-			+ " 중세 시대 배경에 맞는 대화만 하세요.";
+			+ " 지금 마을 광장에서 플레이어와 대화 중이야."
+			+ " 반드시 지킬 규칙:"
+			+ " 첫째, 무조건 한 문장으로만 대답해."
+			+ " 둘째, 특수기호, 별표, 샵, 대시를 절대 쓰지 마."
+			+ " 셋째, 분석하거나 설명하지 마. 그냥 자연스럽게 대화해."
+			+ " 넷째, 중세 시대 마을 주민답게 말해.";
+
 
 		List<Map<String, String>> messages = new ArrayList<>();
 
@@ -64,9 +67,20 @@ public class OllamaService {
 
 			log.info("Ollama 응답: {}", response);
 
+
+
 			ObjectMapper objectMapper = new ObjectMapper();
 			JsonNode root = objectMapper.readTree(response);
 			String content = root.path("message").path("content").asText();
+
+			content = content
+				.replaceAll("\\*+", "")
+				.replaceAll("#+ ", "")
+				.replaceAll("\\n+", " ")
+				.replaceAll("-+ ", "")
+				.trim();
+
+
 			log.info("파싱 결과: {}", content);
 			return content;
 
