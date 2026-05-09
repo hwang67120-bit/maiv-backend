@@ -8,7 +8,9 @@ public record NpcResponse(
 	Long id,
 	String name,
 	String mbtiType,
-	NpcState currentState) {
+	NpcState currentState
+
+) {
 
 	public static NpcResponse from(Npc npc) {
 		return new NpcResponse(
@@ -16,6 +18,7 @@ public record NpcResponse(
 			npc.getName(),
 			npc.getMbtiType(),
 			npc.getCurrentState()
+
 		);
 	}
 

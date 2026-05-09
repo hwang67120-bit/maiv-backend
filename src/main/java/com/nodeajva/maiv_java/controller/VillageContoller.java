@@ -31,7 +31,6 @@ public class VillageContoller {
             npcMap.put("id", npc.id());
             npcMap.put("name", npc.name());
             npcMap.put("job", "주민");
-            npcMap.put("pos", Map.of("x", 800, "y", 900));
             npcMap.put("action", "idle");
             npcList.add(npcMap);
         }

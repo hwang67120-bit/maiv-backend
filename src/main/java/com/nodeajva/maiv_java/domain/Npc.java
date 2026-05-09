@@ -32,7 +32,8 @@ public class Npc extends BaseEntity {
 	@Column
 	private NpcState currentState;
 
-	// Npc 엔티티에 추가
+
+
 	public static Npc create(String name, String mbtiType) {
 		Npc npc = new Npc();
 		npc.name = name;
